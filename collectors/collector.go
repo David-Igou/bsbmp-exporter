@@ -2,12 +2,11 @@ package collectors
 
 import (
 //	"log"
-        "math/rand"
         "github.com/prometheus/client_golang/prometheus"
-        bsbmp "github.com/david-igou/bsbmp-exporter/services"
+        client "github.com/david-igou/bsbmp-exporter/services"
 )
 
-var client bsbmp.Client
+var sensor client.Sensor
 
 //Define a struct for you collector that contains pointers
 //to prometheus descriptors for each metric you wish to expose.
@@ -19,7 +18,8 @@ type bsbmpCollector struct {
 
 //You must create a constructor for you collector that
 //initializes every descriptor and returns a pointer to the collector
-func NewBsbmpCollector(c bsbmp.Client) *bsbmpCollector {
+func NewBsbmpCollector(c client.Sensor) *bsbmpCollector {
+	sensor = c
 	return &bsbmpCollector{
 		Temperature: prometheus.NewDesc("Temperature",
 			"The temperature",
@@ -42,9 +42,9 @@ func (collector *bsbmpCollector) Collect(ch chan<- prometheus.Metric) {
 	//Implement logic here to determine proper metric value to return to prometheus
 	//for each descriptor or call other functions that do so.
 	var metricValue float64
-	resp := client.Poll() // I want the metrics
-	if resp > 1 {
-		metricValue = float64(rand.Intn(20) + 10)
+	resp := sensor.Poll() // I want the metrics
+	if resp > -100 {
+		metricValue = float64(resp)
 	}
 
 	//Write latest value for each metric in the prometheus metric channel.

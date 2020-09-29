@@ -1,7 +1,8 @@
 package collectors
 
 import (
-//	"log"
+	"log"
+	"sync"
         "github.com/prometheus/client_golang/prometheus"
         client "github.com/david-igou/bsbmp-exporter/services"
 )
@@ -13,7 +14,14 @@ var sensor client.Sensor
 //Note you can also include fields of other types if they provide utility
 //but we just won't be exposing them as metrics.
 type bsbmpCollector struct {
-	Temperature *prometheus.Desc
+
+	mutex sync.RWMutex
+
+	TemperatureC *prometheus.Desc
+	HumidityRH *prometheus.Desc
+	PressurePa *prometheus.Desc
+	PressureMmHg *prometheus.Desc
+	AltitudeM *prometheus.Desc
 }
 
 //You must create a constructor for you collector that
@@ -21,8 +29,24 @@ type bsbmpCollector struct {
 func NewBsbmpCollector(c client.Sensor) *bsbmpCollector {
 	sensor = c
 	return &bsbmpCollector{
-		Temperature: prometheus.NewDesc("Temperature",
-			"The temperature",
+		TemperatureC: prometheus.NewDesc("TemperatureC",
+			"The temperature in Celcius",
+			nil, nil,
+		),
+		PressurePa: prometheus.NewDesc("PressurePa",
+			"Pressure in Pascals",
+			nil, nil,
+		),
+		PressureMmHg: prometheus.NewDesc("PressureMmHg",
+			"Pressure in MmHg",
+			nil, nil,
+		),
+		HumidityRH: prometheus.NewDesc("HumidityRH",
+			"Relative humidity (Percent)",
+			nil, nil,
+		),
+		AltitudeM: prometheus.NewDesc("AltitudeM",
+			"Altitude in Meters above sea level",
 			nil, nil,
 		),
 	}
@@ -33,21 +57,30 @@ func NewBsbmpCollector(c client.Sensor) *bsbmpCollector {
 func (collector *bsbmpCollector) Describe(ch chan<- *prometheus.Desc) {
 
 	//Update this section with the each metric you create for a given collector
-	ch <- collector.Temperature
+	ch <- collector.TemperatureC
+	ch <- collector.PressurePa
+	ch <- collector.PressureMmHg
+	ch <- collector.HumidityRH
+	ch <- collector.AltitudeM
 }
 
 //Collect implements required collect function for all promehteus collectors
 func (collector *bsbmpCollector) Collect(ch chan<- prometheus.Metric) {
-
+//todo add mutex
+	collector.mutex.Lock()
+	defer collector.mutex.Unlock()
 	//Implement logic here to determine proper metric value to return to prometheus
 	//for each descriptor or call other functions that do so.
-	var metricValue float64
-	resp := sensor.Poll() // I want the metrics
-	if resp > -100 {
-		metricValue = float64(resp)
+	resp, err := sensor.Poll() // I want the metrics
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	//Write latest value for each metric in the prometheus metric channel.
 	//Note that you can pass CounterValue, GaugeValue, or UntypedValue types here.
-	ch <- prometheus.MustNewConstMetric(collector.Temperature, prometheus.CounterValue, metricValue)
+	ch <- prometheus.MustNewConstMetric(collector.TemperatureC, prometheus.CounterValue, float64(resp.TemperatureC))
+	ch <- prometheus.MustNewConstMetric(collector.PressurePa, prometheus.CounterValue, float64(resp.PressurePa))
+	ch <- prometheus.MustNewConstMetric(collector.PressureMmHg, prometheus.CounterValue, float64(resp.PressureMmHg))
+	ch <- prometheus.MustNewConstMetric(collector.HumidityRH, prometheus.CounterValue, float64(resp.HumidityRH))
+	ch <- prometheus.MustNewConstMetric(collector.AltitudeM, prometheus.CounterValue, float64(resp.AltitudeM))
 }

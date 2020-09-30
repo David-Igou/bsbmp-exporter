@@ -1,0 +1,12 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: bsbmp-exporter
+  namespace: monitoring
+subsets:
+  - addresses:
+      - ip: 192.168.1.77
+    ports:
+      - port: 9123
+        name: http
+        protocol: TCP

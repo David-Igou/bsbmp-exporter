@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: bsbmp-exporter
+  name: bsbmp-exporter
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 10s
+    port: http
+  selector:
+    matchLabels:
+      app: bsbmp-exporter

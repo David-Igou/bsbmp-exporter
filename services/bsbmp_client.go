@@ -1,15 +1,10 @@
 package client
 
 import (
-//	"bytes"
-//	"encoding/json"
-//	"fmt"
-//	"io/ioutil"
-//	"net/http"
-//	"net/url"
 	"log"
-  "github.com/d2r2/go-i2c"
-  "github.com/d2r2/go-bsbmp"
+	"github.com/d2r2/go-i2c"
+	"github.com/d2r2/go-bsbmp"
+	logger "github.com/d2r2/go-logger"
 )
 
 type Sensor struct {
@@ -34,6 +29,10 @@ func (c Sensor) Poll() (*Response, error) {
 		log.Fatal(err)
 	}
 	defer i2c.Close()
+
+	// todo loglevel flag
+	logger.ChangePackageLogLevel("i2c", logger.InfoLevel)
+	logger.ChangePackageLogLevel("bsbmp", logger.InfoLevel)
 
 	// Make this a case, hard code for now.
 	sensor, err := bsbmp.NewBMP(bsbmp.BME280, i2c) // signature=0x60

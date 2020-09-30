@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"flag"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
+	"strings"
+	log "github.com/sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	client "github.com/david-igou/bsbmp-exporter/services"
@@ -19,17 +20,26 @@ var (
 	model		= flag.String("model", "BME280", "Model of probe [list options]")
 )
 
-
 func main() {
 	flag.Parse()
 
 	//Create a new instance of the foocollector and 
 	//register it with the prometheus client.
 	//case model numbers
-	foo := collectors.NewBsbmpCollector(client.Sensor{I2c: *bus, Model: *model})
-
+	foo := collectors.NewBsbmpCollector(client.Sensor{})
+	switch strings.ToLower(*model) {
+	case "bmp180":
+		foo = collectors.NewBsbmpCollector(client.Sensor{I2c: *bus, Model: "bmp180"})
+	case "bmp280":
+		foo = collectors.NewBsbmpCollector(client.Sensor{I2c: *bus, Model: "bmp280"})
+	case "bme280":
+		foo = collectors.NewBsbmpCollector(client.Sensor{I2c: *bus, Model: "bme280"})
+	case "bmp388":
+		foo = collectors.NewBsbmpCollector(client.Sensor{I2c: *bus, Model: "bmp388"})
+	default:
+		log.Fatal("Invalid model!")
+	}
 	prometheus.MustRegister(foo)
-
 	//This section will start the HTTP server and expose
 	//any metrics on the /metrics endpoint.
 	http.Handle(*metricPath, promhttp.Handler())

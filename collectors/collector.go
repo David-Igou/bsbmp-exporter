@@ -1,7 +1,7 @@
 package collectors
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 	"sync"
         "github.com/prometheus/client_golang/prometheus"
         client "github.com/david-igou/bsbmp-exporter/services"

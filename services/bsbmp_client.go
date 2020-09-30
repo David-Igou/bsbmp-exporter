@@ -1,7 +1,7 @@
 package client
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 	"github.com/d2r2/go-i2c"
 	"github.com/d2r2/go-bsbmp"
 	logger "github.com/d2r2/go-logger"
@@ -34,8 +34,21 @@ func (c Sensor) Poll() (*Response, error) {
 	logger.ChangePackageLogLevel("i2c", logger.InfoLevel)
 	logger.ChangePackageLogLevel("bsbmp", logger.InfoLevel)
 
-	// Make this a case, hard code for now.
-	sensor, err := bsbmp.NewBMP(bsbmp.BME280, i2c) // signature=0x60
+	sensor, err := bsbmp.NewBMP(bsbmp.BMP388, i2c) // No default constructor, placeholder
+
+	switch c.Model {
+	case "bmp180":
+		sensor, err = bsbmp.NewBMP(bsbmp.BMP180, i2c) // signature=0x55
+	case "bme280":
+		sensor, err = bsbmp.NewBMP(bsbmp.BME280, i2c) // signature=0x60
+	case "bmp280":
+		sensor, err = bsbmp.NewBMP(bsbmp.BMP280, i2c) // signature=0x58
+	case "bmp388":
+		sensor, err = bsbmp.NewBMP(bsbmp.BMP388, i2c) // signature=0x50
+	default:
+		log.Fatal("No model match!")
+	}
+
 
 	// Read Temperature in Celcius
 	resp.TemperatureC, err = sensor.ReadTemperatureC(bsbmp.ACCURACY_STANDARD)

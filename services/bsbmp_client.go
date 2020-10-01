@@ -10,6 +10,7 @@ import (
 type Sensor struct {
 	I2c int
 	Model string
+	Address uint8
 }
 
 type Response struct {
@@ -24,7 +25,7 @@ func (c Sensor) Poll() (*Response, error) {
 
 	resp := Response{}
 
-	i2c, err := i2c.NewI2C(0x76, c.I2c)
+	i2c, err := i2c.NewI2C(c.Address, c.I2c)
 	if err != nil {
 		log.Fatal(err)
 	}

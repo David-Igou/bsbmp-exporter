@@ -6,7 +6,6 @@ ARG TARGETARCH
 WORKDIR $GOPATH/src/github.com/david-igou/bsbmp-exporter
 COPY . .
 RUN go mod download
-#RUN GOARCH=$TARGETARCH GOOS=$TARGETOS go build -v -installsuffix cgo -ldflags '-d -s -w -extldflags "-static"' -o /go/bin/bsbmp-exporter github.com/david-igou/bsbmp-exporter
 RUN GOARCH=$TARGETARCH GOOS=$TARGETOS go build -v -o /go/bin/bsbmp-exporter github.com/david-igou/bsbmp-exporter
 
 FROM alpine:edge

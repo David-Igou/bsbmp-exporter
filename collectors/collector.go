@@ -77,9 +77,9 @@ func (collector *bsbmpCollector) Collect(ch chan<- prometheus.Metric) {
 
 	//Write latest value for each metric in the prometheus metric channel.
 	//Note that you can pass CounterValue, GaugeValue, or UntypedValue types here.
-	ch <- prometheus.MustNewConstMetric(collector.TemperatureC, prometheus.CounterValue, float64(resp.TemperatureC))
-	ch <- prometheus.MustNewConstMetric(collector.PressurePa, prometheus.CounterValue, float64(resp.PressurePa))
-	ch <- prometheus.MustNewConstMetric(collector.PressureMmHg, prometheus.CounterValue, float64(resp.PressureMmHg))
-	ch <- prometheus.MustNewConstMetric(collector.HumidityRH, prometheus.CounterValue, float64(resp.HumidityRH))
-	ch <- prometheus.MustNewConstMetric(collector.AltitudeM, prometheus.CounterValue, float64(resp.AltitudeM))
+	ch <- prometheus.MustNewConstMetric(collector.TemperatureC, prometheus.GaugeValue, float64(resp.TemperatureC))
+	ch <- prometheus.MustNewConstMetric(collector.PressurePa, prometheus.GaugeValue, float64(resp.PressurePa))
+	ch <- prometheus.MustNewConstMetric(collector.PressureMmHg, prometheus.GaugeValue, float64(resp.PressureMmHg))
+	ch <- prometheus.MustNewConstMetric(collector.HumidityRH, prometheus.GaugeValue, float64(resp.HumidityRH))
+	ch <- prometheus.MustNewConstMetric(collector.AltitudeM, prometheus.GaugeValue, float64(resp.AltitudeM))
 }

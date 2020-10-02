@@ -29,7 +29,7 @@ func NewBsbmpCollector(c client.Sensor) *bsbmpCollector {
 	sensor = c
 	return &bsbmpCollector{
 		TemperatureC: prometheus.NewDesc("TemperatureC",
-			"The temperature in Celcius",
+			"The temperature in Celsius",
 			nil, nil,
 		),
 		PressurePa: prometheus.NewDesc("PressurePa",

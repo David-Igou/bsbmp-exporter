@@ -50,7 +50,7 @@ func (c Sensor) Poll() (*Response, error) {
 		log.Fatal("No model match!")
 	}
 
-	// Read Temperature in Celcius
+	// Read Temperature in Celsius
 	resp.TemperatureC, err = sensor.ReadTemperatureC(bsbmp.ACCURACY_STANDARD)
 	if err != nil {
 		log.Fatal(err)

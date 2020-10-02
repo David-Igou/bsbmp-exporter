@@ -18,6 +18,11 @@ jobs:
         with:
           version: latest
       -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+      -
         name: Builder instance name
         run: echo ${{ steps.buildx.outputs.name }}
       -

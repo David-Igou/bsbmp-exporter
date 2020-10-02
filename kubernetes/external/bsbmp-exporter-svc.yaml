@@ -8,5 +8,5 @@ metadata:
 spec:
   ports:
   - name: http
-    port: 9123
+    port: 9756
     targetPort: http

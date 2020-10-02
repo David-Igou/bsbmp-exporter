@@ -22,7 +22,7 @@ var (
 )
 
 func main() {
-	flag.StringVar(&port, "port", "9123", "Address to listen on for web interface and telemetry. Also can use environment variable PORT")
+	flag.StringVar(&port, "port", "9756", "Address to listen on for web interface and telemetry. Also can use environment variable PORT")
 	flag.StringVar(&metricPath, "metricspath", "/metrics", "Path under which to expose metrics. Also can use environment variable METRICSPATH ")
 	flag.IntVar(&bus, "bus", 1, "Bus of i2c interface (ie 1 for /dev/i2c-1). Also can use environment variable BUS")
 	flag.StringVar(&address, "address", "0x76", "i2c address of BME/BMP sensor - Verify with i2cdetect -y [bus] - Also can use environment variable MODEL")

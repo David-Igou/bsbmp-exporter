@@ -17,14 +17,14 @@ Usage of ./bsbmp-exporter:
   -bus=1: Bus of i2c interface (ie 1 for /dev/i2c-1). Also can use environment variable BUS
   -metricspath="/metrics": Path under which to expose metrics. Also can use environment variable METRICSPATH 
   -model="BME280": Model of probe - Current supported models: [bmp180, bme280, bmp280, bmp388] - Also can use environment variable MODEL
-  -port="9123": Address to listen on for web interface and telemetry. Also can use environment variable PORT
+  -port="9756": Address to listen on for web interface and telemetry. Also can use environment variable PORT
 ```
 
 ## Docker run
 
 ```shell
 # Currently privileged is required to access /dev/i2c
-docker run -p 9123:9123 -v /dev:/dev --privileged quay.io/igou/bsbmp-exporter:latest
+docker run -p 9756:9756 -v /dev:/dev --privileged quay.io/igou/bsbmp-exporter:latest
 ```
 
 # Installation

@@ -7,6 +7,6 @@ subsets:
   - addresses:
       - ip: 192.168.1.77
     ports:
-      - port: 9123
+      - port: 9756
         name: http
         protocol: TCP

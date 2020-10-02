@@ -1,12 +1,10 @@
 # bsbmp-exporter
-----------------
 
 This exporter is made to export readings from Bosch Sensortec BMP180, BMP280, BME280, and BMP388 sensors into a format that can scraped by [Prometheus](https://prometheus.io)
 
 Currently it exports temperature in Celsius, Percent humidity, Pressure in mmHg and Pascal, and Altitude in Meters above sea level.
 
 # Usage
--------
 
 ## Command line:
 
@@ -28,7 +26,6 @@ docker run -p 9123:9123 -v /dev:/dev --privileged quay.io/igou/bsbmp-exporter:la
 ```
 
 # Installation
---------------
 
 ![image](https://raw.github.com/david-igou/bsbmp-exporter/master/docs/bme280-pizero.jpg)
 
@@ -56,6 +53,5 @@ To get the address of the device:
 This has not (yet!) been tested on Orange/Banana Pis.
 
 # Thanks
---------
 
 This exporter heavily relys on [d2r2/go-i2c](https://github.com/d2r2/go-i2c) and [d2r2/go-bsbmp](https://github.com/d2r2/go-bsbmp) to talk to the i2c bus and wouldn't have been possible for me without them as I am no expert on that subject.

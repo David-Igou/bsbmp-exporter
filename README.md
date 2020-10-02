@@ -1,6 +1,9 @@
 # bsbmp-exporter
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/david-igou/bsbmp-exporter/push_latest?style=plastic)
 [![Go Report Card](https://goreportcard.com/badge/github.com/david-igou/bsbmp-exporter)](https://goreportcard.com/report/github.com/david-igou/bsbmp-exporter) 
 [![MIT License](http://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+
 
 This exporter is made to export readings from Bosch Sensortec BMP180, BMP280, BME280, and BMP388 sensors into a format that can scraped by [Prometheus](https://prometheus.io)
 

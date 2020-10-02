@@ -1,10 +1,10 @@
 package collectors
 
 import (
+	client "github.com/david-igou/bsbmp-exporter/services"
+	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 	"sync"
-        "github.com/prometheus/client_golang/prometheus"
-        client "github.com/david-igou/bsbmp-exporter/services"
 )
 
 var sensor client.Sensor
@@ -14,14 +14,13 @@ var sensor client.Sensor
 //Note you can also include fields of other types if they provide utility
 //but we just won't be exposing them as metrics.
 type bsbmpCollector struct {
-
 	mutex sync.RWMutex
 
 	TemperatureC *prometheus.Desc
-	HumidityRH *prometheus.Desc
-	PressurePa *prometheus.Desc
+	HumidityRH   *prometheus.Desc
+	PressurePa   *prometheus.Desc
 	PressureMmHg *prometheus.Desc
-	AltitudeM *prometheus.Desc
+	AltitudeM    *prometheus.Desc
 }
 
 //You must create a constructor for you collector that
@@ -66,7 +65,7 @@ func (collector *bsbmpCollector) Describe(ch chan<- *prometheus.Desc) {
 
 //Collect implements required collect function for all promehteus collectors
 func (collector *bsbmpCollector) Collect(ch chan<- prometheus.Metric) {
-//todo add mutex
+	//todo add mutex
 	collector.mutex.Lock()
 	defer collector.mutex.Unlock()
 	//Implement logic here to determine proper metric value to return to prometheus

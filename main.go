@@ -1,24 +1,24 @@
 package main
 
 import (
-	"net/http"
-	"github.com/namsral/flag"
 	"fmt"
-	"strings"
-	"strconv"
-	log "github.com/sirupsen/logrus"
+	"github.com/david-igou/bsbmp-exporter/collectors"
+	client "github.com/david-igou/bsbmp-exporter/services"
+	"github.com/namsral/flag"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	client "github.com/david-igou/bsbmp-exporter/services"
-	"github.com/david-igou/bsbmp-exporter/collectors"
+	log "github.com/sirupsen/logrus"
+	"net/http"
+	"strconv"
+	"strings"
 )
 
 var (
-	port string
+	port       string
 	metricPath string
-	bus int
-	address string
-	model string
+	bus        int
+	address    string
+	model      string
 )
 
 func main() {
@@ -30,13 +30,13 @@ func main() {
 	flag.Parse()
 
 	// Clean up address input, since not everyone prefixes with 0x/x
-	if (address[0:2] == "0x"){
+	if address[0:2] == "0x" {
 		address = address[2:]
-	} else if (address[0:1] == "x") {
+	} else if address[0:1] == "x" {
 		address = address[1:]
 	}
 
-	address64, _ := strconv.ParseUint(address,16,8)
+	address64, _ := strconv.ParseUint(address, 16, 8)
 	address8 := uint8(address64)
 
 	log.Info("Using address ", address8)
@@ -60,5 +60,5 @@ func main() {
 	//any metrics on the /metrics endpoint.
 	http.Handle(metricPath, promhttp.Handler())
 	log.Info("Beginning to serve on port ", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v",port), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))
 }

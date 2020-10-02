@@ -1,24 +1,24 @@
 package client
 
 import (
-	log "github.com/sirupsen/logrus"
-	"github.com/d2r2/go-i2c"
 	"github.com/d2r2/go-bsbmp"
+	"github.com/d2r2/go-i2c"
 	logger "github.com/d2r2/go-logger"
+	log "github.com/sirupsen/logrus"
 )
 
 type Sensor struct {
-	I2c int
-	Model string
+	I2c     int
+	Model   string
 	Address uint8
 }
 
 type Response struct {
 	TemperatureC float32
-	PressurePa float32
+	PressurePa   float32
 	PressureMmHg float32
-	HumidityRH float32
-	AltitudeM float32
+	HumidityRH   float32
+	AltitudeM    float32
 }
 
 func (c Sensor) Poll() (*Response, error) {
@@ -49,7 +49,6 @@ func (c Sensor) Poll() (*Response, error) {
 	default:
 		log.Fatal("No model match!")
 	}
-
 
 	// Read Temperature in Celcius
 	resp.TemperatureC, err = sensor.ReadTemperatureC(bsbmp.ACCURACY_STANDARD)

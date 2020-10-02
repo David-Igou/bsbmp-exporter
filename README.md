@@ -1,5 +1,5 @@
 # bsbmp-exporter
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/david-igou/bsbmp-exporter/push_latest?style=plastic)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/david-igou/bsbmp-exporter/push_latest)
 [![Go Report Card](https://goreportcard.com/badge/github.com/david-igou/bsbmp-exporter)](https://goreportcard.com/report/github.com/david-igou/bsbmp-exporter) 
 [![MIT License](http://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 

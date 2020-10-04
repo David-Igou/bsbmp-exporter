@@ -55,7 +55,14 @@ To get the address of the device:
 70: -- -- -- -- -- -- 76 --                         
 ```
 
+
 This has not (yet!) been tested on Orange/Banana Pis.
+
+# Grafana
+
+`docs/` contains two dashboards, one requiring a target label `bsbmp_group` being applied, and a basic one that should work out of the box.
+
+![image](https://raw.github.com/david-igou/bsbmp-exporter/master/docs/grafana_dashboard.png)
 
 # Thanks
 

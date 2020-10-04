@@ -3,6 +3,7 @@ kind: ServiceMonitor
 metadata:
   labels:
     app: bsbmp-exporter
+    group: basement
   name: bsbmp-exporter
   namespace: monitoring
 spec:
@@ -12,3 +13,5 @@ spec:
   selector:
     matchLabels:
       app: bsbmp-exporter
+  targetLabels:
+    - bsbmp_group

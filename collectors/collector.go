@@ -28,7 +28,7 @@ type bsbmpCollector struct {
 func NewBsbmpCollector(c client.Sensor) *bsbmpCollector {
 	sensor = c
 	return &bsbmpCollector{
-		TemperatureC: prometheus.NewDesc("bsbmp_temperature_celcius",
+		TemperatureC: prometheus.NewDesc("bsbmp_temp_celsius",
 			"The temperature in Celsius",
 			nil, nil,
 		),

@@ -71,7 +71,7 @@
       "pluginVersion": "7.1.5",
       "targets": [
         {
-          "expr": "sum((bsbmp_temperature_celcius{bsbmp_group=\"$group\"}*9/5)+32)/count(bsbmp_temperature_celcius{bsbmp_group=\"$group\"})",
+          "expr": "sum((bsbmp_temp_celsius{bsbmp_group=\"$group\"}*9/5)+32)/count(bsbmp_temp_celsius{bsbmp_group=\"$group\"})",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -130,7 +130,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(bsbmp_temperature_celcius{bsbmp_group=\"$group\"}*9/5)+32",
+          "expr": "(bsbmp_temp_celsius{bsbmp_group=\"$group\"}*9/5)+32",
           "instant": false,
           "interval": "",
           "legendFormat": "",

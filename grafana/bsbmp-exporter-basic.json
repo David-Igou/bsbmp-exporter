@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "8.3.6"
+      "version": "8.5.3"
     },
     {
       "type": "panel",
@@ -46,7 +46,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -66,11 +69,15 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1647020552990,
+  "iteration": 1655669043085,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "decimals": 1,
@@ -117,7 +124,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.5.3",
       "targets": [
         {
           "datasource": {
@@ -141,6 +148,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "fahrenheit"
@@ -173,7 +184,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -277,14 +288,15 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.5.3",
       "targets": [
         {
           "expr": "sum(bsbmp_humidity_percent)/count(bsbmp_humidity_percent)",
           "instant": true,
           "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "refId": "A",
+          "datasource": "${DS_PROMETHEUS}"
         }
       ],
       "title": "Average Humidity",
@@ -333,7 +345,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -346,7 +358,8 @@
           "expr": "bsbmp_humidity_percent",
           "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "refId": "A",
+          "datasource": "${DS_PROMETHEUS}"
         }
       ],
       "thresholds": [],
@@ -422,14 +435,15 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.5.3",
       "targets": [
         {
           "expr": "bsbmp_pressure_pascal",
           "instant": true,
           "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "refId": "A",
+          "datasource": "${DS_PROMETHEUS}"
         }
       ],
       "title": "Average Pressure",
@@ -477,7 +491,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "8.5.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -490,7 +504,8 @@
           "expr": "bsbmp_pressure_pascal",
           "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "refId": "A",
+          "datasource": "${DS_PROMETHEUS}"
         }
       ],
       "thresholds": [],
@@ -526,7 +541,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 34,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -552,7 +567,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {
@@ -571,7 +586,7 @@
   },
   "timezone": "",
   "title": "bsbmp-exporter-basic",
-  "uid": "FASDFSADF",
-  "version": 1,
+  "uid": "bsbmp-exporter-basic",
+  "version": 2,
   "weekStart": ""
 }
